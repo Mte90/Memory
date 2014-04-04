@@ -84,7 +84,7 @@
 						$('.show').slideUp().removeClass('show');
 						//Reset the turn counter
 						turn = 1;
-						//Add a new attempt in the coutner
+						//Add a new attempt in the counter
 						attempts += 1;
 					}
 					//Ignore click if re-click on the card showed
@@ -94,7 +94,7 @@
 						//Show the card clicked
 						$('.card', this).addClass('show').slideDown();
 						var checked = $('.show');
-						//Check if the card showed are the same
+						//Check if the cards showed are the same
 						if ($(checked[0]).data('cardv') === $(checked[1]).data('cardv')) {
 							//Add a new find to the counter
 							find += 1;
@@ -109,7 +109,7 @@
 						alert("You won with " + attempts + " attempts");
 						//Show link for new challenge
 						$('a').show();
-						//remove the click event
+						//Remove the click event
 						$('.table td').off('click');
 					}
 					//Update the attempts score on the game
