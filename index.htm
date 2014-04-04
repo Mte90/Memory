@@ -1,129 +1,155 @@
 
 <html>
-  <head>
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<style>
-td {
-	border: 1px solid rgba(0,0,0,0.3);
-}
-div {
-	width:64px;
-	height:64px;
-}
-.container {
-	margin:0 auto;
-	width:280px;
-	text-align:center;
-}
-.bordo {
-	height:278px;
-	width:274px;
-	background: rgb(78,142,206);
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRlOGVjZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzNTZhYTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,  rgba(78,142,206,1) 0%, rgba(53,106,160,1) 100%);
-	background: -webkit-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
-	background: -o-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
-	background: -ms-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
-	background: linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
-	border-radius: 5px;
-	border: 1px solid rgba(0,0,0,0.3);
-	box-shadow: 0 0 5px 1px rgba(0,0,0,0.2),inset 0 1px 0 0px rgba(255,255,255,0.3);
-	padding:4px;
-	padding-left:9px;
-	margin-top:4px;
-}
-.tabella {
-	background: #689ecd;
-	border-collapse:collapse;
-	margin-top:5px;
-	box-shadow: 0 0 5px 1px rgba(0,0,0,0.2),inset 0 1px 0 0px rgba(255,255,255,0.3);
-}
-td:hover {
-	background: #f6f6f6;
-	cursor:pointer;
-}
-body {
-	background: #f6f6f6;
-	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-}
-.logo {
-	line-height: 1em;
-	color: #4f8cce;
-	font-size: 49px;
-	text-shadow:0px 0px 0 rgb(52,113,179),0px -1px 0 rgb(35,96,162),0px -2px 0 rgb(18,79,145),0px -3px 0 rgb(1,62,128), 0px -4px 0 rgb(-16,45,111),0px -5px 4px rgba(0,0,0,0.6),0px -5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
-}
-</style>
-<script>
-$(document).ready(function() {
-	var card = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
-	var turno = 1;
-	var tentativi = 0;
-	var trova = 0;
-	$(".tabella td").each(function(i){
-	var number = Math.floor(Math.random()*card.length);
-	var rindex = card[number];
-	card.splice(number,1);
-	$('.card',this).hide().data('cardv',rindex+'').css('background','url(img/'+rindex+'.png)');
-	});
-	$('.tabella td').click(function(e){
-		if(turno==3){
-			$('.show').slideUp().removeClass('show');
-			turno = 1;
-			tentativi += 1;
-		}
-		if (!$('.card',this).hasClass('checked') && !$('.card',this).hasClass('show')) {
-			turno += 1;
-			$('.card',this).addClass('show').slideDown();
-			var checked = $('.show');
-				if($(checked[0]).data('cardv')==$(checked[1]).data('cardv')) {
-					trova +=1;
-					$('.show').css('opacity','0.7').addClass('checked').removeClass('show');
-					$('.trova').html('Trovate '+trova);
-				}
-		}
-		if(trova==8){
-			alert("Hai vinto con " + tentativi + " tentativi");
-			$('a').show();
-			$('.tabella td').off('click');
-		}
-	$('.turno').html('Tentativi '+tentativi);
-	});
-});
-</script>
-</head>
-<body>
-<div class="container">
-<span class="logo">KJMemory</span><br>
-<span class="turno">Tentativi 0</span> || <span class="trova">Trovate 0</span>
-<div class="bordo"><table class="tabella">
-  <tr>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-  </tr>
-  <tr>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-  </tr>
-  <tr>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-  </tr>
-  <tr>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-	<td><div class="retro"><div class="card"></div></div></td>
-  </tr>
-</table></div><br/>
-<a href="" style="display:none;font-size:16px"><b>Fai una nuova partita!</b></a><br><br>
-Realizzato da <a href="http://www.mte90.net">Daniele Scasciafratte</a>
-</div>
-</body>
+	<head>
+		<title>KJMemory</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<style>
+			td {
+				border: 1px solid rgba(0,0,0,0.3);
+			}
+			div {
+				width:64px;
+				height:64px;
+			}
+			.container {
+				margin:0 auto;
+				width:280px;
+				text-align:center;
+			}
+			.border {
+				height:278px;
+				width:274px;
+				background: rgb(78,142,206);
+				background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRlOGVjZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzNTZhYTAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+				background: -moz-linear-gradient(top,  rgba(78,142,206,1) 0%, rgba(53,106,160,1) 100%);
+				background: -webkit-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
+				background: -o-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
+				background: -ms-linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
+				background: linear-gradient(top,  rgba(78,142,206,1) 0%,rgba(53,106,160,1) 100%);
+				border-radius: 5px;
+				border: 1px solid rgba(0,0,0,0.3);
+				box-shadow: 0 0 5px 1px rgba(0,0,0,0.2),inset 0 1px 0 0px rgba(255,255,255,0.3);
+				padding:4px;
+				padding-left:9px;
+				margin-top:4px;
+			}
+			.table {
+				background: #689ecd;
+				border-collapse:collapse;
+				margin-top:5px;
+				box-shadow: 0 0 5px 1px rgba(0,0,0,0.2),inset 0 1px 0 0px rgba(255,255,255,0.3);
+			}
+			td:hover {
+				background: #f6f6f6;
+				cursor:pointer;
+			}
+			body {
+				background: #f6f6f6;
+				font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+			}
+			.logo {
+				line-height: 1em;
+				color: #4f8cce;
+				font-size: 49px;
+				text-shadow:0px 0px 0 rgb(52,113,179),0px -1px 0 rgb(35,96,162),0px -2px 0 rgb(18,79,145),0px -3px 0 rgb(1,62,128), 0px -4px 0 rgb(-16,45,111),0px -5px 4px rgba(0,0,0,0.6),0px -5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+			}
+		</style>
+		<script>
+			//Execute the code after the loading of the dom
+			$(document).ready(function() {
+				//Create an array with the number of card
+				var card = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+				//Create the variables
+				var turn = 1;
+				var attempts = 0;
+				var find = 0;
+				//Load the card number with the image randomly in a loop
+				$(".table td").each(function() {
+					//Count the card remain with a random number
+					var number = Math.floor(Math.random() * card.length);
+					//Get a random card
+					var rindex = card[number];
+					//Remove this card in the array
+					card.splice(number, 1);
+					//Insert the css and the data tag
+					$('.card', this).hide()
+							.data('cardv', rindex + '')
+							.css('background', 'url(img/' + rindex + '.png)');
+				});
+				//Add a click event to the card
+				$('.table td').click(function() {
+					//If turn it's completed
+					if (turn === 3) {
+						//Hide the card showed
+						$('.show').slideUp().removeClass('show');
+						//Reset the turn counter
+						turn = 1;
+						//Add a new attempt in the coutner
+						attempts += 1;
+					}
+					//Ignore click if re-click on the card showed
+					if (!$('.card', this).hasClass('checked') && !$('.card', this).hasClass('show')) {
+						//Add a new turn to the counter
+						turn += 1;
+						//Show the card clicked
+						$('.card', this).addClass('show').slideDown();
+						var checked = $('.show');
+						//Check if the card showed are the same
+						if ($(checked[0]).data('cardv') === $(checked[1]).data('cardv')) {
+							//Add a new find to the counter
+							find += 1;
+							//Add opacity, add checked class
+							$('.show').css('opacity', '0.7').addClass('checked').removeClass('show');
+							$('.find').html('Found ' + find);
+						}
+					}
+					//If finished the card
+					if (trova === 8) {
+						//Hooray!
+						alert("You won with " + attempts + " attempts");
+						//Show link for new challenge
+						$('a').show();
+						//remove the click event
+						$('.table td').off('click');
+					}
+					//Update the attempts score on the game
+					$('.turn').html('Attempts ' + attempts);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<span class="logo">KJMemory</span><br>
+			<span class="turn">Attempts 0</span> || <span class="find">Found 0</span>
+			<div class="border"><table class="table">
+					<tr>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+					</tr>
+					<tr>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+					</tr>
+					<tr>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+					</tr>
+					<tr>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+						<td><div class="retro"><div class="card"></div></div></td>
+					</tr>
+				</table></div><br/>
+			<a href="" style="display:none;font-size:16px"><b>New challenge!</b></a><br><br>
+			Created by <a href="http://www.mte90.net">Daniele Scasciafratte</a>
+		</div>
+	</body>
 </html>
