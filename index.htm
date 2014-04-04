@@ -15,7 +15,7 @@
 				width:280px;
 				text-align:center;
 			}
-			.bordo {
+			.border {
 				height:278px;
 				width:274px;
 				background: rgb(78,142,206);
@@ -32,7 +32,7 @@
 				padding-left:9px;
 				margin-top:4px;
 			}
-			.tabella {
+			.table {
 				background: #689ecd;
 				border-collapse:collapse;
 				margin-top:5px;
@@ -54,55 +54,78 @@
 			}
 		</style>
 		<script>
+			//Execute the code after the loading of the dom
 			document.addEventListener("DOMContentLoaded", function() {
+				//Create an array with the number of card
 				var card = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-				var turno = 1;
-				var tentativi = 0;
-				var trova = 0;
-				selector = document.querySelectorAll(".tabella td");
+				//Create the variables
+				var turn = 1;
+				var attempts = 0;
+				var find = 0;
+				//Load the card number with the image randomly in a loop
+				selector = document.querySelectorAll(".table td");
 				Array.prototype.forEach.call(selector, function(item) {
+					//Count the card remain with a random number
 					var number = Math.floor(Math.random() * card.length);
+					//Get a random card
 					var rindex = card[number];
+					//Remove this card in the array
 					card.splice(number, 1);
+					//Insert the css and the data tag
 					item.querySelector('.card').style.display = 'none';
 					item.querySelector('.card').style.background = 'url(img/' + rindex + '.png)';
 					item.querySelector('.card').dataset.cardv = rindex;
 				});
+				//Add a click event to the card
 				Array.prototype.forEach.call(selector, function(item) {
 					item.addEventListener("click", function test() {
-						if (turno === 3) {
+						//If turn it's completed
+						if (turn === 3) {
+							//Hide the card showed
 							Array.prototype.forEach.call(document.querySelectorAll('.show'), function(item) {
 								item.classList.remove('show');
 								item.style.display = 'none';
 							});
-							turno = 1;
-							tentativi += 1;
+							//Reset the turn counter
+							turn = 1;
+							//Add a new attempt in the counter
+							attempts += 1;
 						}
+						//Ignore click if re-click on the card showed
 						if (!item.querySelector('.card').classList.contains('checked') && !item.querySelector('.card').classList.contains('show')) {
-							turno += 1;
+							//Add a new turn to the counter
+							turn += 1;
+							//Show the card clicked
 							item.querySelector('.card').classList.add('show');
 							var checked = document.querySelectorAll('.show');
 							Array.prototype.forEach.call(checked, function(item) {
 								item.style.display = 'block';
 							});
+							//Check if the cards showed are the same
 							if (checked[1] !== undefined && (checked[0].dataset.cardv === checked[1].dataset.cardv)) {
-								trova += 1;
+								//Add a new find to the counter
+								find += 1;
+								//Add opacity, add checked class
 								Array.prototype.forEach.call(document.querySelectorAll('.show'), function(item) {
 									item.style.opacity = '0.7';
 									item.classList.add('checked');
 									item.classList.remove('show');
 								});
-								document.querySelector('.trova').innerHTML = 'Trovate ' + trova;
+								document.querySelector('.find').innerHTML = 'Founded ' + find;
 							}
 						}
-						if (trova === 8) {
-							alert("Hai vinto con " + tentativi + " tentativi");
+						if (find === 8) {
+							//Hooray!
+							alert("You won with " + attempts + " attempts");
+							//Show link for new challenge
 							document.querySelector('a').style.display = 'block';
+							//Disable the click event (css hack)
 							Array.prototype.forEach.call(selector, function(item) {
 								item.style.pointerEvents = 'none';
 							});
 						}
-						document.querySelector('.turno').innerHTML = 'Tentativi ' + tentativi;
+						//Update the attempts score on the game
+						document.querySelector('.turn').innerHTML = 'Attempts ' + attempts;
 					});
 				});
 			});
@@ -111,8 +134,8 @@
 	<body>
 		<div class="container">
 			<span class="logo">KJMemory</span><br>
-			<span class="turno">Tentativi 0</span> || <span class="trova">Trovate 0</span>
-			<div class="bordo"><table class="tabella">
+			<span class="turn">Attempts 0</span> || <span class="find">Founded 0</span>
+			<div class="border"><table class="table">
 					<tr>
 						<td><div class="retro"><div class="card"></div></div></td>
 						<td><div class="retro"><div class="card"></div></div></td>
@@ -138,8 +161,8 @@
 						<td><div class="retro"><div class="card"></div></div></td>
 					</tr>
 				</table></div><br/>
-			<a href="" style="display:none;font-size:16px"><b>Fai una nuova partita!</b></a><br><br>
-			Realizzato da <a href="http://www.mte90.net">Daniele Scasciafratte</a>
+				<a href="" style="display:none;font-size:16px"><b>New challenge!</b></a><br><br>
+				Created by <a href="http://www.mte90.net">Daniele Scasciafratte</a>
 		</div>
 	</body>
 </html>
