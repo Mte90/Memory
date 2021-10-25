@@ -10,11 +10,21 @@
 				width:64px;
 				height:64px;
 			}
+
+			span, .text {
+				color: white;
+			}
+
+			a {
+				color: bisque;
+			}
+
 			.container {
 				margin:0 auto;
 				width:280px;
 				text-align:center;
 			}
+
 			.border {
 				height:278px;
 				width:274px;
@@ -43,7 +53,7 @@
 				cursor:pointer;
 			}
 			body {
-				background: #f6f6f6;
+				background-color: rgb(32,33,34);
 				font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 			}
 			.logo {
@@ -111,7 +121,7 @@
 									item.classList.add('checked');
 									item.classList.remove('show');
 								});
-								document.querySelector('.find').innerHTML = 'Founded ' + find;
+								document.querySelector('.find').innerHTML = 'Found ' + find;
 							}
 						}
 						if (find === 8) {
@@ -134,7 +144,7 @@
 	<body>
 		<div class="container">
 			<span class="logo">KJMemory</span><br>
-			<span class="turn">Attempts 0</span> || <span class="find">Founded 0</span>
+			<span class="turn">Attempts 0</span><span> || </span><span class="find">Found 0</span>
 			<div class="border"><table class="table">
 					<tr>
 						<td><div class="retro"><div class="card"></div></div></td>
@@ -162,7 +172,7 @@
 					</tr>
 				</table></div><br/>
 				<a href="" style="display:none;font-size:16px"><b>New challenge!</b></a><br><br>
-				Created by <a href="http://www.mte90.net">Daniele Scasciafratte</a>
+				<span>Created by</span> <a href="http://www.mte90.net">Daniele Scasciafratte</a>
 		</div>
 	</body>
 </html>
